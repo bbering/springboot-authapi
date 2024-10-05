@@ -19,7 +19,7 @@ import com.bbering.crm.model.User;
 import com.bbering.crm.repository.UserRepository;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/users") // endpoint
 public class UserController {
 
   @Autowired
