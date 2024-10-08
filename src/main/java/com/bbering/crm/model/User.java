@@ -1,5 +1,10 @@
 package com.bbering.crm.model;
 
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,71 +14,50 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long password;
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
   @Column(nullable = false)
-  private String email;
+  private String login;
+
+  @Column(nullable = false)
+  private String password;
 
   @Column(nullable = false)
   private String role;
 
-  public Long getPassword() {
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getAuthorities'");
+  }
+
+  @Override
+  public String getPassword() {
     return password;
   }
 
-  public String getEmail() {
-    return email;
-  }
-
-  public void setPassword(Long id) {
-    this.password = id;
-  }
-
-  public void setEmail(String name) {
-    this.email = name;
-  }
-
   @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((password == null) ? 0 : password.hashCode());
-    result = prime * result + ((email == null) ? 0 : email.hashCode());
-    return result;
+  public String getUsername() {
+    return login;
   }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    User other = (User) obj;
-    if (password == null) {
-      if (other.password != null)
-        return false;
-    } else if (!password.equals(other.password))
-      return false;
-    if (email == null) {
-      if (other.email != null)
-        return false;
-    } else if (!email.equals(other.email))
-      return false;
-    return true;
+  public Long getId() {
+    return id;
   }
 
-  public String getRole() {
-    return role;
+  public String getLogin() {
+    return login;
   }
 
-  public void setRole(String role) {
-    this.role = role;
+  public void setLogin(String login) {
+    this.login = login;
   }
 
+  public void setId(Long id) {
+    this.id = id;
+  }
 }
