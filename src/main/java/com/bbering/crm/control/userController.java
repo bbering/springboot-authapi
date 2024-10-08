@@ -38,7 +38,7 @@ public class UserController {
 
   @DeleteMapping
   public ResponseEntity<Void> removeUser(@RequestBody User user) {
-    Optional<User> userToDelete = userRepository.findById(user.getId());
+    Optional<User> userToDelete = userRepository.findById(user.getPassword());
     if (userToDelete.isPresent()) {
       userRepository.delete(userToDelete.get());
       return ResponseEntity.noContent().build(); // retorna 204 no Content se for possivel deletar
@@ -49,12 +49,12 @@ public class UserController {
 
   @PutMapping
   public ResponseEntity<User> updateUser(@RequestBody User userDetails) {
-    Optional<User> userToUpdate = userRepository.findById(userDetails.getId());
+    Optional<User> userToUpdate = userRepository.findById(userDetails.getPassword());
     if (userToUpdate.isPresent()) {
       User user = userToUpdate.get();
 
-      user.setName(userDetails.getName());
-      user.setId(userDetails.getId());
+      user.setEmail(userDetails.getEmail());
+      user.setPassword(userDetails.getPassword());
 
       User updatedUser = userRepository.save(user);
       return ResponseEntity.ok(updatedUser);
