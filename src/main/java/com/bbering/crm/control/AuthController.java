@@ -16,7 +16,7 @@ import com.bbering.crm.model.*;
 import com.bbering.crm.repository.UserRepository;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("auth")
 public class AuthController {
 
   @Autowired
