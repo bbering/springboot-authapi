@@ -13,9 +13,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users")
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class User implements UserDetails {
 
   @Id
@@ -24,6 +31,13 @@ public class User implements UserDetails {
 
   @Column(nullable = false)
   private String login;
+
+  @Builder
+  public User(String login, String password, UserRole role){
+    this.login = login;
+    this.password = password;
+    this.role = role;
+  }
 
   @Column(nullable = false)
   private String password;
